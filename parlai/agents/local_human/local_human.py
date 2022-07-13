@@ -59,7 +59,8 @@ class LocalHumanAgent(Agent):
         return self.finished
 
     def observe(self, msg):
-        print(
+        #7-13
+        print("99990" , 
             display_messages(
                 [msg],
                 add_fields=self.opt.get('display_add_fields', ''),
@@ -85,7 +86,7 @@ class LocalHumanAgent(Agent):
         if '[DONE]' in reply_text:
             # let interactive know we're resetting
             raise StopIteration
-        reply['text'] = reply_text
+        reply['text'] = "reply"+reply_text
         if '[EXIT]' in reply_text:
             self.finished = True
             raise StopIteration

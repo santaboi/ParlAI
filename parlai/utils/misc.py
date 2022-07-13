@@ -526,6 +526,8 @@ def display_messages(
         line = '{}{} {}'.format(
             indent_space, colorize('[' + field + ']:', 'field'), colorize(value, style)
         )
+        #7-13
+        line = "NLPSA :" + line
         return line
 
     lines = []
