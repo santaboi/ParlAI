@@ -3,6 +3,8 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
+
+from googletrans import Translator
 """
 File for miscellaneous utility functions and constants.
 """
@@ -523,11 +525,19 @@ def display_messages(
         return _pretty_lines(space, key, formatted_tl, 'text2')
 
     def _pretty_lines(indent_space, field, value, style):
+        #value is replu message from bot
+        #GOOgle tranlate to chinese
+        translator = Translator()
+        #print(value)
+        if value != None:
+            value = translator.translate(value, dest='zh-tw', src='en').text
+        #line = '{}{} {}'.format(
+        #    indent_space, colorize('[' + field + ']:', 'field'), colorize(value, style)
+        #)
         line = '{}{} {}'.format(
-            indent_space, colorize('[' + field + ']:', 'field'), colorize(value, style)
+            indent_space, colorize('[NLPSA CHinese Chatbot]:', 'field'), colorize(value, style)
         )
         #7-13
-        line = "NLPSA :" + line
         return line
 
     lines = []

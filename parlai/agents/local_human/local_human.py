@@ -18,6 +18,9 @@ from parlai.utils.misc import display_messages, load_cands
 from parlai.utils.strings import colorize
 
 
+from googletrans import Translator
+
+
 class LocalHumanAgent(Agent):
     @classmethod
     def add_cmdline_args(
@@ -60,7 +63,7 @@ class LocalHumanAgent(Agent):
 
     def observe(self, msg):
         #7-13
-        print("99990" , 
+        print(
             display_messages(
                 [msg],
                 add_fields=self.opt.get('display_add_fields', ''),
@@ -74,6 +77,9 @@ class LocalHumanAgent(Agent):
         reply['id'] = self.getID()
         try:
             reply_text = input(colorize("Enter Your Message:", 'text') + ' ')
+            translator = Translator()
+            if reply_text != None:
+                reply_text = translator.translate(reply_text, dest='en', src='zh-tw').text
         except EOFError:
             self.finished = True
             return {'episode_done': True}
@@ -86,7 +92,7 @@ class LocalHumanAgent(Agent):
         if '[DONE]' in reply_text:
             # let interactive know we're resetting
             raise StopIteration
-        reply['text'] = "reply"+reply_text
+        reply['text'] = reply_text
         if '[EXIT]' in reply_text:
             self.finished = True
             raise StopIteration
